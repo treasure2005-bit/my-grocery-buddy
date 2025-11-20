@@ -4,7 +4,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const User = require("../models/userModel");
 
-// Render register page
+// Rendeing register page
 router.get("/register", (req, res) => {
   if (req.session.userId) {
     return res.redirect("/dashboard");
@@ -12,7 +12,7 @@ router.get("/register", (req, res) => {
   res.render("register", { message: null });
 });
 
-// Render login page
+// Rendeing login page
 router.get("/login", (req, res) => {
   if (req.session.userId) {
     return res.redirect("/dashboard");
@@ -20,7 +20,7 @@ router.get("/login", (req, res) => {
   res.render("login", { message: null });
 });
 
-// Handle registration - AUTO LOGIN on success
+// Handling registration - AUTO LOGIN on success
 router.post("/register", async (req, res) => {
   const { username, email, password, confirmPassword } = req.body;
 
@@ -45,7 +45,7 @@ router.post("/register", async (req, res) => {
   }
 
   try {
-    // Check if user already exists
+    // Checking if user already exists
     const userExists = await User.findOne({
       $or: [{ email }, { username }],
     });
@@ -57,11 +57,11 @@ router.post("/register", async (req, res) => {
       });
     }
 
-    // Hash password
+    // Hashing password
     const hashedPassword = await bcrypt.hash(password, 10);
     console.log("Password hashed successfully");
 
-    // Create new user
+    // Creating new user
     const newUser = new User({
       username,
       email,
@@ -75,7 +75,7 @@ router.post("/register", async (req, res) => {
       email: savedUser.email,
     });
 
-    // AUTO-LOGIN: create session and redirect to dashboard
+    // AUTO-LOGIN: creating session and redirecting to dashboard
     req.session.userId = savedUser._id;
     req.session.username = savedUser.username;
     req.session.email = savedUser.email;
@@ -93,7 +93,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// Handle login
+// Handling login
 router.post("/login", async (req, res) => {
   const { emailOrUsername, password } = req.body;
   console.log("Login attempt:", { emailOrUsername });
@@ -124,7 +124,7 @@ router.post("/login", async (req, res) => {
 
     console.log("Password matched");
 
-    // Create session
+    // Creating session
     req.session.userId = user._id;
     req.session.username = user.username;
     req.session.email = user.email;
@@ -137,7 +137,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// Handle logout
+// Handling logout
 router.get("/logout", (req, res) => {
   console.log("User logging out");
   req.session.destroy((err) => {

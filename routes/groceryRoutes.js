@@ -27,7 +27,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// POST - Add new item
+// POST - Adding new item
 router.post("/", async (req, res) => {
   try {
     const { name, category, quantity } = req.body;
@@ -41,7 +41,7 @@ router.post("/", async (req, res) => {
       return res.status(400).json({ error: "Quantity must be at least 1" });
     }
 
-    // Create new item
+    // Creating new item
     const newItem = new GroceryItem({
       name,
       category,
@@ -57,7 +57,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// PUT - Update item
+// PUT - Updating item
 router.put("/:id", async (req, res) => {
   try {
     const { name, category, quantity } = req.body;
@@ -73,7 +73,7 @@ router.put("/:id", async (req, res) => {
       return res.status(404).json({ error: "Item not found or unauthorized" });
     }
 
-    // Update fields
+    // Updating fields
     if (name) item.name = name;
     if (category) item.category = category;
     if (quantity) item.quantity = quantity;
@@ -134,7 +134,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-// DELETE - Clear completed items
+// DELETE - Clearing completed items
 router.delete("/bulk/completed", async (req, res) => {
   try {
     const result = await GroceryItem.deleteMany({
@@ -152,7 +152,7 @@ router.delete("/bulk/completed", async (req, res) => {
   }
 });
 
-// DELETE - Clear all items
+// DELETE - Clearing all items
 router.delete("/bulk/all", async (req, res) => {
   try {
     const result = await GroceryItem.deleteMany({
