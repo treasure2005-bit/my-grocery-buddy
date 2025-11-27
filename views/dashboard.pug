@@ -1,0 +1,109 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title My Grocery Buddy - Dashboard
+    link(rel="stylesheet" href="css/dashboard.css")
+  body
+    .container
+      //- Top Navigation
+      .top-bar
+        .logo
+          .logo-icon 🛒
+          h1 My Grocery Buddy
+        .user-section
+          span.user-name 👤 #{user.username}
+          a.logout-btn(href="/logout") Logout
+
+      //- Statistics Dashboard
+      .dashboard-grid
+        .stat-card
+          .stat-header
+            div
+              .stat-value#totalItems 0
+              .stat-label Total Items
+            
+
+        .stat-card
+          .stat-header
+            div
+              .stat-value#activeItems 0
+              .stat-label Active
+            
+
+        .stat-card
+          .stat-header
+            div
+              .stat-value#completedItems 0
+              .stat-label Completed
+            
+
+        .stat-card
+          .stat-header
+            div
+              .stat-value#remainingItems 0
+              .stat-label Remaining
+            
+
+      //- Main Content
+      .content-wrapper
+        //- Add Item Section
+        .add-section
+          h2.section-title ➕ Add New Item
+          
+          .alert#successAlert
+            span  Item added successfully!
+            button.alert-close(onclick="closeAlert()") ×
+
+          form#itemForm
+            .input-group
+              label.input-label Item Name
+              input.form-input#itemName(type="text" placeholder="e.g., Fresh Apples" required)
+            
+            .input-group
+              label.input-label Category
+              select.form-select#category(required)
+                option(value="") Choose a category
+                option(value="Produce") Produce
+                option(value="Dairy")  Dairy
+                option(value="Meat")  Meat
+                option(value="Bakery")  Bakery
+                option(value="Pantry")  Pantry
+                option(value="Frozen") Frozen
+                option(value="Beverages")  Beverages
+                option(value="Snacks") Snacks
+                option(value="Other")  Other
+            
+            .input-group
+              label.input-label Quantity
+              input.form-input#quantity(type="number" placeholder="How many?" min="1" required)
+
+            .btn-group
+              button.btn-primary(type="submit") SAVE ITEM
+              button.btn-secondary(type="button" onclick="resetForm()") RESET
+
+        //- Items List Section
+        .list-section
+          .list-header
+            h2.section-title  Your Grocery List
+            
+            div(style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;")
+              .filter-pills
+                button.filter-pill.active(onclick="filterItems('all', event)") All
+                button.filter-pill(onclick="filterItems('active', event)") Active
+                button.filter-pill(onclick="filterItems('completed', event)") Completed
+              
+              .bulk-btns
+                button.bulk-btn(onclick="clearCompleted()") Clear Completed
+                button.bulk-btn(onclick="clearAll()") Clear All
+
+          .items-grid#itemsGrid
+            //- Items will be dynamically loaded here
+
+          .empty-state#emptyState(style="display: none;")
+            .empty-icon 🛒
+            .empty-title No items yet
+            .empty-text Start adding items to your grocery list!
+
+    script(src="/js/dashboard.js")
