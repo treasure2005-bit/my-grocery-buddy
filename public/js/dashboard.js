@@ -158,7 +158,7 @@ function editItem(id) {
 
 // Delete item
 async function deleteItem(id) {
-  if (confirm("🗑️ Delete this item?")) {
+  if (confirm(" Delete this item?")) {
     try {
       const response = await fetch(`/api/groceries/${id}`, {
         method: "DELETE",
@@ -217,7 +217,7 @@ async function clearAll() {
     return;
   }
 
-  if (confirm("⚠️ Delete ALL items?")) {
+  if (confirm(" Delete ALL items?")) {
     try {
       const response = await fetch("/api/groceries/bulk/all", {
         method: "DELETE",
