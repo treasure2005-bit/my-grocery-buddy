@@ -1,103 +1,67 @@
+require("dotenv").config();
 const express = require("express");
-const mongoose = require("mongoose");
-const session = require("express-session");
 const cors = require("cors");
-const dotenv = require("dotenv");
-const path = require("path");
+const connectDB = require("./config/db");
 
-dotenv.config();
-
+// Initialize app
 const app = express();
 
-// Import routes
-const authRoutes = require("./routes/authRoutes");
-const groceryRoutes = require("./routes/groceryRoutes");
+// Connect to database
+connectDB();
 
 // Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors());
-app.use(express.static(path.join(__dirname, "public")));
-
-// Session middleware - MUST BE BEFORE ROUTES
 app.use(
-  session({
-    secret:
-      process.env.SESSION_SECRET || "your-secret-key-change-in-production",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      maxAge: 1000 * 60 * 60 * 24 * 7, 
-    },
+  cors({
+    origin:
+      process.env.NODE_ENV === "production"
+        ? "your-frontend-url.com"
+        : "http://127.0.0.1:5500",
+    credentials: true,
   })
 );
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// View engine setup
-app.set("view engine", "pug");
-app.set("views", path.join(__dirname, "views"));
-
-// Make user available in all views
+// Request logging middleware
 app.use((req, res, next) => {
-  res.locals.user = req.session.userId
-    ? {
-        id: req.session.userId,
-        username: req.session.username,
-        email: req.session.email,
-      }
-    : null;
+  console.log(`${req.method} ${req.path}`);
   next();
 });
 
-// MongoDB Connection
-mongoose
-  .connect(
-    process.env.MONGODB_URI || "mongodb://localhost:27017/my-grocery-buddy"
-  )
-  .then(() => console.log(" MongoDB Connected"))
-  .catch((err) => console.error(" MongoDB Connection Error:", err));
-
 // Routes
-app.use("/", authRoutes);
-app.use("/api/groceries", groceryRoutes);
+app.use("/", require("./routes/authRoutes"));
+app.use("/", require("./routes/grocery"));
 
-// Dashboard Route (Protected)
-app.get("/dashboard", (req, res) => {
-  // Check if user is logged in
-  if (!req.session.userId) {
-    return res.redirect("/login");
-  }
-
-  // Render dashboard with user data
-  res.render("dashboard", {
-    user: {
-      username: req.session.username,
-      email: req.session.email,
-    },
+// Health check route
+app.get("/api/health", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Server is running",
+    timestamp: new Date().toISOString(),
   });
 });
 
-// Home route redirect
-app.get("/", (req, res) => {
-  if (req.session.userId) {
-    res.redirect("/dashboard");
-  } else {
-    res.redirect("/login");
-  }
-});
-
-// 404 Handler
+// 404 handler
 app.use((req, res) => {
-  res.status(404).send("Page not found");
+  res.status(404).json({
+    success: false,
+    message: "Route not found",
+  });
 });
 
-// Error Handler
+// Global error handler
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send("Something went wrong!");
+  console.error("Global Error Handler:", err);
+  res.status(err.statusCode || 500).json({
+    success: false,
+    message: err.message || "Server error",
+    ...(process.env.NODE_ENV === "development" && { stack: err.stack }),
+  });
 });
 
-// Starting server
+// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(` Server running on http://localhost:${PORT}`);
+  console.log(` Server running on port ${PORT}`);
+  console.log(` Environment: ${process.env.NODE_ENV || "development"}`);
 });
