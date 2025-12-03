@@ -32,9 +32,7 @@ body {
     line-height: 1.6;
 }
 
-/* ============================================
-   FOR AUTHENTICATION  
-   ============================================ */
+/*  FOR AUTHENTICATION  */
 .auth-container {
     min-height: 100vh;
     display: flex;
@@ -54,6 +52,8 @@ body {
     animation: slideUp 0.5s ease;
     backdrop-filter: blur(10px);
 }
+
+
 
 @keyframes slideUp {
     from {
@@ -129,10 +129,30 @@ body {
     color: #94a3b8;
 }
 
+/* VALIDATION STYLES  */
+
 /* Error state for inputs */
-.form-input.error {
+.form-input.error,
+.form-group input.error,
+.form-group select.error {
     border-color: var(--danger) !important;
     background: #fee2e2 !important;
+    animation: shake 0.4s ease;
+}
+
+/* Success state for inputs */
+.form-input.success,
+.form-group input.success,
+.form-group select.success {
+    border-color: var(--success) !important;
+    background: #f0fdf4 !important;
+}
+
+/* Shake animation for error inputs */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+    20%, 40%, 60%, 80% { transform: translateX(8px); }
 }
 
 .error-text {
@@ -141,6 +161,26 @@ body {
     margin-top: 5px;
     min-height: 20px;
     font-weight: 500;
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Required field indicator */
+.form-group label.required::after {
+    content: " *";
+    color: var(--danger);
+    font-weight: bold;
 }
 
 /* Success and Error Messages */
@@ -201,9 +241,7 @@ body {
     text-decoration: underline;
 }
 
-/* ============================================
-   BUTTONS 
-   ============================================ */
+/* BUTTONS  */
 .btn {
     padding: 12px 24px;
     border: none;
@@ -304,9 +342,7 @@ body {
     }
 }
 
-/* ============================================
-   GROCERY PAGE  
-   ============================================ */
+/*  GROCERY PAGE  */
 .app-container {
     min-height: 100vh;
     background: var(--bg-primary);
@@ -351,9 +387,7 @@ body {
     padding: 30px 20px;
 }
 
-/* ============================================
-   STATISTICS  
-   ============================================ */
+/* STATISTICS  */
 .stats-section {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -400,9 +434,7 @@ body {
     color: var(--success);
 }
 
-/* ============================================
-   ADD ITEM SECTION 
-   ============================================ */
+/* ADD ITEM SECTION  */
 .add-item-section {
     background: var(--bg-secondary);
     border-radius: 12px;
@@ -432,9 +464,7 @@ body {
     width: 100%;
 }
 
-/* ============================================
-   CONTROLS  
-   ============================================ */
+/* CONTROLS  */
 .controls-section {
     display: flex;
     justify-content: space-between;
@@ -478,9 +508,7 @@ body {
     gap: 10px;
 }
 
-/* ============================================
-   GROCERY LIST 
-   ============================================ */
+/* GROCERY LIST  */
 .loading-indicator {
     text-align: center;
     padding: 60px 20px;
@@ -627,9 +655,7 @@ body {
     color: var(--danger);
 }
 
-/* ============================================
-   MODAL  
-   ============================================ */
+/* MODAL   */
 .modal {
     display: none;
     position: fixed;
@@ -646,15 +672,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-@keyframes fadeIn {
-    from { 
-        opacity: 0; 
-    }
-    to { 
-        opacity: 1; 
-    }
 }
 
 .modal-content {
@@ -706,9 +723,7 @@ body {
     margin-top: 20px;
 }
 
-/* ============================================
-   RESPONSIVE DESIGN 
-   ============================================ */
+/* RESPONSIVE DESIGN  */
 @media (max-width: 768px) {
     body {
         padding: 10px;
@@ -805,9 +820,7 @@ body {
     }
 }
 
-/* ============================================
-   PRINT STYLES 
-   ============================================ */
+/* PRINT STYLES */
 @media print {
     .app-header,
     .add-item-section,

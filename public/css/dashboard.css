@@ -1,4 +1,4 @@
-/* GLOBAL STYLES */
+
 * {
   margin: 0;
   padding: 0;
@@ -14,7 +14,7 @@ body {
   padding: 20px;
 }
 
-/* AUTH PAGES STYLING (Login & Register) */
+/* Login and Signin */
 .auth-page {
   display: flex;
   align-items: center;
@@ -146,7 +146,7 @@ body {
   display: flex;
   align-items: center;
   gap: 20px;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(175, 42, 42, 0.15);
   backdrop-filter: blur(10px);
   padding: 12px 24px;
   border-radius: 50px;
@@ -364,6 +364,69 @@ body {
   color: #aaa;
 }
 
+/*  FORM VALIDATION STYLES  */
+
+/* Error state for inputs */
+.form-input.error,
+.form-select.error {
+  border: 2px solid #e74c3c !important;
+  background-color: #fee !important;
+  animation: shake 0.3s;
+}
+
+/* Success state for inputs */
+.form-input.success,
+.form-select.success {
+  border: 2px solid #27ae60 !important;
+  background-color: #f0fff4 !important;
+}
+
+/* Error text styling */
+.error-text {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  margin-top: 8px;
+  display: block;
+  min-height: 20px;
+  font-weight: 600;
+  animation: fadeIn 0.3s;
+}
+
+/* Success text styling */
+.success-text {
+  color: #27ae60;
+  font-size: 0.85rem;
+  margin-top: 8px;
+  display: block;
+  font-weight: 600;
+}
+
+/* Shake animation for errors */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Required field indicator */
+.input-label.required::after {
+  content: " *";
+  color: #e74c3c;
+  font-weight: bold;
+  margin-left: 2px;
+}
+
 /* Button Group */
 .btn-group {
   display: grid;
@@ -395,6 +458,12 @@ body {
   transform: translateY(0);
 }
 
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .btn-secondary {
   background: white;
   color: #667eea;
@@ -416,7 +485,7 @@ body {
   transform: translateY(0);
 }
 
-/*  GROCERY LIST SECTION (RIGHT SIDE) */
+/*  GROCERY LIST SECTION  */
 .list-section {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
@@ -476,7 +545,7 @@ body {
   color: #e74c3c;
   border: 2px solid #e74c3c;
   padding: 10px 20px;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
   font-weight: 600;
   font-size: 13px;
@@ -567,7 +636,7 @@ body {
   padding: 4px 12px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  border-radius: 20px;
+  border-radius: 0px;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;

@@ -23,28 +23,24 @@ html(lang="en")
             div
               .stat-value#totalItems 0
               .stat-label Total Items
-            
 
         .stat-card
           .stat-header
             div
               .stat-value#activeItems 0
               .stat-label Active
-            
 
         .stat-card
           .stat-header
             div
               .stat-value#completedItems 0
               .stat-label Completed
-            
 
         .stat-card
           .stat-header
             div
               .stat-value#remainingItems 0
               .stat-label Remaining
-            
 
       //- Main Content
       .content-wrapper
@@ -53,31 +49,34 @@ html(lang="en")
           h2.section-title ➕ Add New Item
           
           .alert#successAlert
-            span  Item added successfully!
+            span  Item added successfully
             button.alert-close(onclick="closeAlert()") ×
 
           form#itemForm
             .input-group
-              label.input-label Item Name
-              input.form-input#itemName(type="text" placeholder="e.g., Fresh Apples" required)
+              label.input-label.required Item Name
+              input.form-input#itemName(type="text" placeholder="e.g., Fresh Apples")
+              .error-text#itemNameError
             
             .input-group
-              label.input-label Category
-              select.form-select#category(required)
+              label.input-label.required Category
+              select.form-select#category
                 option(value="") Choose a category
-                option(value="Produce") Produce
+                option(value="Produce")  Produce
                 option(value="Dairy")  Dairy
                 option(value="Meat")  Meat
                 option(value="Bakery")  Bakery
                 option(value="Pantry")  Pantry
-                option(value="Frozen") Frozen
+                option(value="Frozen")  Frozen
                 option(value="Beverages")  Beverages
-                option(value="Snacks") Snacks
+                option(value="Snacks")  Snacks
                 option(value="Other")  Other
+              .error-text#categoryError
             
             .input-group
-              label.input-label Quantity
-              input.form-input#quantity(type="number" placeholder="How many?" min="1" required)
+              label.input-label.required Quantity
+              input.form-input#quantity(type="number" placeholder="How many?" min="1" max="999")
+              .error-text#quantityError
 
             .btn-group
               button.btn-primary(type="submit") SAVE ITEM
@@ -86,7 +85,7 @@ html(lang="en")
         //- Items List Section
         .list-section
           .list-header
-            h2.section-title  Your Grocery List
+            h2.section-title Your Grocery List
             
             div(style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;")
               .filter-pills
