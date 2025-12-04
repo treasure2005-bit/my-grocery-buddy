@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // ===== VALIDATION FUNCTIONS =====
+  //  VALIDATION FUNCTIONS 
 
   function validateUsername() {
     const value = usernameInput.value.trim();
@@ -233,7 +233,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return true;
   }
 
-  // ===== HELPER FUNCTIONS =====
+  //  HELPER FUNCTIONS 
 
   function showError(inputElement, errorElement, message) {
     inputElement.classList.add("error");

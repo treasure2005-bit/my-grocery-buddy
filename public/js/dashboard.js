@@ -21,7 +21,7 @@ async function loadItems() {
   }
 }
 
-// ===== FORM VALIDATION INITIALIZATION =====
+//  FORM VALIDATION INITIALIZATION 
 function initializeValidation() {
   const itemNameInput = document.getElementById("itemName");
   const categorySelect = document.getElementById("category");
@@ -60,7 +60,7 @@ function addErrorContainers() {
   });
 }
 
-// ===== VALIDATION FUNCTIONS =====
+//  VALIDATION FUNCTIONS 
 function validateItemName() {
   const itemNameInput = document.getElementById("itemName");
   const value = itemNameInput.value.trim();
@@ -159,7 +159,7 @@ function validateQuantity() {
   return true;
 }
 
-// ===== VALIDATION HELPER FUNCTIONS =====
+//  VALIDATION HELPER FUNCTIONS 
 function showError(inputElement, errorElement, message) {
   inputElement.classList.add("error");
   inputElement.classList.remove("success");

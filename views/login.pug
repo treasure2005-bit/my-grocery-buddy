@@ -15,7 +15,7 @@ html(lang="en")
         
         //- Display backend messages
         if message
-          .message(class=message.includes('✅') || message.toLowerCase().includes('success') ? 'success' : 'error')
+          .message(class=message.includes('') || message.toLowerCase().includes('success') ? 'success' : 'error')
             = message
         
         //- Success alert (hidden by default)
